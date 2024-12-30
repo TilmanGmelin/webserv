@@ -1,13 +1,5 @@
-#include <stdlib.h>
-
-int main(int argc, char* argv[], char* envp[])
-{
-
-	return(EXIT_SUCCESS);
-}
-
-
-
+#ifndef WEBSERV_HPP
+# define WEBSERV_HPP
 
 /*
 A package is what we recieve from the client
@@ -38,3 +30,6 @@ We also may need a session manager and/or an authenticator (for tokens)
 
 */
 
+
+
+#endif

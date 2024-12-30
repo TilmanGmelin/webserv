@@ -6,7 +6,7 @@
 #    By: tgmelin <tgmelin@student.42heilbronn.de    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/26 20:26:50 by tgmelin           #+#    #+#              #
-#    Updated: 2024/12/29 19:04:23 by tgmelin          ###   ########.fr        #
+#    Updated: 2024/12/29 19:10:05 by tgmelin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS	:= ${SRCS:.c=.o}
 
 DEBUG_FLAGS		= -g -fsanitize=address -fsanitize=undefined -O0 
 RELEASE_FLAGS	= -flto -fomit-frame-pointer -Ofast -fvisibility=hidden -march=native #-fstack-protector-strong
-CFLAGS			= -Wall -Wextra -Werror -fcolor-diagnostics# -Wunreachable-code
+CFLAGS			= -std=c++17 -Wall -Wextra -Werror -fcolor-diagnostics# -Wunreachable-code
 
 #################################
 #			Internals			#
