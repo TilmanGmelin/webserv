@@ -6,12 +6,11 @@
 #include <iterator>
 #include <poll.h>
 #include <map>
+#include <vector>
 
 namespace webs
 {
 #define MAX_SERVERNAME_LEN 32
-
-
 	/*
 	A package is what we recieve from the client.
 	The listener ist responsible for building these and handling sliced
@@ -26,6 +25,7 @@ namespace webs
 		std::map<std::string, std::string>	headers;     	// HTTP headers (e.g., Content-Type)
 		std::string 						body;           // Body of the request (e.g., content of a POST request)
 		uint32_t							size;           // Size of the package body in bytes
+		uint16_t							fd;				// fd of the connection the package was recieved on
 	};
 
 	/*
@@ -35,22 +35,21 @@ namespace webs
 	- Directory listing: Enable or disable directory listing if the requested URL is a directory.
 	- Default file: Specify a default file (e.g., index.html) to serve when the client requests a directory.
 	*/
-	#define ROUTE_METHOD_GET	1
-	#define ROUTE_METHOD_POST	2
-	#define ROUTE_METHOD_DELETE	4
+	#define ROUTE_METHOD_GET			1
+	#define ROUTE_METHOD_POST			2
+	#define ROUTE_METHOD_DELETE			4
+	#define ROUTE_METHOD_DIR_LISTING	8
 	struct Route
 	{
 		std::string	root;				// directory to map to filesystem
 		std::string	redirect;			// You can also serve static files but redirect to another route (or page) if a file is not found. WARNING: REDIRECTION LOOP NEEDS TO BE HANDLED GRACEFULLY ( maybe after like 20-30 redirections)
 		std::string	default_file;		// Set a default file to answer if the request is a directory.
 		char		allowed_methods;	// bitfield for allowed method. Example: ROUTE_METHOD_GET | ROUTE_METHOD_POST (= 3)
-		bool		dir_listing;		// Turn on or off directory listing.
 	};
 
 	struct ServerConfig
 	{
 		std::string 						root;			// Root directory for this server
-		std::string						 	host;			// host of this server
 		std::vector<uint16_t>				ports;			// Ports this server is listening on
 		std::vector<std::string>			server_names;	// list of domain names the server goes by
 		std::vector<Route>					routes;			// list of available routes
@@ -78,26 +77,40 @@ namespace webs
 		bool	Validate();
 
 		// Iterator for getting all server_configs later
-		std::list<ServerConfig>::iterator begin() { return std::list<ServerConfig>::iterator(server_configs_.begin()); }
-		std::list<ServerConfig>::iterator end()	  { return std::list<ServerConfig>::iterator(server_configs_.end());   }
+		std::list<ServerConfig>::iterator begin() { return (server_configs_.begin()); }
+		std::list<ServerConfig>::iterator end()	  { return (server_configs_.end());   }
 
 		// Print function for debugging. 
 		void debug_print();
 	};
-
+		// std::string	root;				// directory to map to filesystem
+		// std::string	redirect;			// You can also serve static files but redirect to another route (or page) if a file is not found. WARNING: REDIRECTION LOOP NEEDS TO BE HANDLED GRACEFULLY ( maybe after like 20-30 redirections)
+		// std::string	default_file;		// Set a default file to answer if the request is a directory.
+		// char		allowed_methods;		// bitfield for allowed method. Example: ROUTE_METHOD_GET | ROUTE_METHOD_POST (= 3)
+		// bool		dir_listing;			// Turn on or off directory listing.
 
 	class Server
 	{
 	private:
-		// Confifuration
-		std::string 				root;
-		std::string 				host;
-		std::vector<std::string> 	server_names;
-		uint32_t					max_client_body_size;
+		// Configuration
+		std::string 				root_;
+		std::vector<std::string> 	server_names_;
+		uint32_t					max_client_body_size_;
 
+		// Routes
+		std::vector<std::string>	route_path_;
+		std::vector<std::string>	route_redirect_;
+		std::vector<std::string>	route_default_file_;
+		std::vector<char>			route_allowed_methods_;
+
+		// internal data structures
+		std::vector<Package*>		working_set;
 	public:
 		Server(const ServerConfig& _config);
 		~Server();
+
+		void HandlePackage(Package* _package);
+		void HandleIOOperationComplete(uint32_t _operation_id, uint32_t _err_code);
 
 		//TODO
 	};
@@ -126,7 +139,7 @@ namespace webs
 		ServerController() = delete;
 	public:
 		ServerController(Config _config);
-		void Dispatch(Package _package, uint32_t _fd);
+		void Dispatch(Package* _package, uint32_t _fd);
 		void SignalFileOpComplete(int _err_code, uint8_t _server_id, uint32_t _operation_id);
 		std::vector<uint16_t> GetWantedPorts();
 		void DebugPrint();
@@ -155,8 +168,8 @@ namespace webs
 		std::vector<uint16_t>	port_;
 
 		// data for open_read_connections
-		std::vector<Package>	new_connections_;
-		std::vector<uint316_t>	connection_port_;
+		std::vector<uint16_t>		connection_port_;
+		std::vector<std::string>	recieved_data_;
 
 		// data for open_write_connections
 		std::vector<Response>	responses_;
@@ -170,6 +183,7 @@ namespace webs
 		// data for write file operations
 		std::vector<std::string>	write_filepaths_;
 		std::vector<std::string*>	write_data_ins_;
+		std::vector<uint32_t>		write_op_bytes_written_;
 		std::vector<uint32_t>		write_operation_id_;
 		std::vector<uint8_t>		write_server_id_;
 
