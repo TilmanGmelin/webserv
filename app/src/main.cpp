@@ -11,6 +11,7 @@
 #include <vector>
 #include <poll.h>
 #include <fcntl.h>
+#include "../include/Webserv.hpp"
 
 // Send HTML content to client
 void get_html(int client_socket, const std::string& file_path) {
@@ -83,7 +84,8 @@ int create_server_socket(int port) {
     return server_fd;
 }
 
-int main(int argc, char* argv[]) {
+int StaticExample(int argc, char* argv[])
+{
 	// Start check
     if (argc != 2) {
         std::cerr << "Required:\n\n    ./webserv <config_file>\n" << std::endl;
@@ -185,35 +187,30 @@ int main(int argc, char* argv[]) {
     return EXIT_SUCCESS;
 }
 
+void	PrintUsage()
+{
+	std::cerr << "Required:\n\n    ./webserv <config_file>\n" << std::endl;
+}
 
+int main(int _argc, char* _argv[])
+{
+	// check for correct usage
+	if (_argc != 2)
+		return (PrintUsage(), EXIT_FAILURE);
 
+	// load config
+	webs::Config config(_argv[1]);
+	if (!config.Validate())
+		return (EXIT_FAILURE);
 
-/*
-A package is what we recieve from the client
-*/
-struct package;
+	// create servers
+	webs::ServerController server_controller(config);
 
-/*
-Configureation of the webserver.
-name of webserver, paths for allowed cgis and so on
-*/
-class config;
+	// register io interface with list of wanted ports
+	webs::IOInterface io_interface(server_controller.GetWantedPorts());
 
-/*
-handles the open socket and creates packages from incoming data.
-*/
-class Listener;
-
-
-/*
-Recieves packages and executes based on configuration
-*/
-class Executer;
-
-/*
-we need to determine how exactly the different parts of the configuration
-are important for different parts of the process.
-We also may need a session manager and/or an authenticator (for tokens)
-
-*/
+	// have sex
+	while (true)
+		io_interface.Dispatch();
+}
 

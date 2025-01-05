@@ -1,13 +1,17 @@
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
 
-#include <map>
 #include <string>
 #include <list>
 #include <iterator>
+#include <poll.h>
+#include <map>
 
 namespace webs
 {
+#define MAX_SERVERNAME_LEN 32
+
+
 	/*
 	A package is what we recieve from the client.
 	The listener ist responsible for building these and handling sliced
@@ -16,14 +20,13 @@ namespace webs
 	enum Http_Method {NAN1, GET, POST, NAN2, DELETE}; // NAN1 and 2 is used so it corresponds with the bitfield values of a route
 	struct Package
 	{
-		std::string uri;                         			// URI of the request (path)
-		Http_Method method;                      			// HTTP method (GET, POST, DELETE)
-		std::map<std::string, std::string> query_params;	// Query parameters from the URI (e.g., ?key=value)
-		std::map<std::string, std::string> headers;     	// HTTP headers (e.g., Content-Type)
-		uint32_t size;                           			// Size of the package body in bytes
-		std::string body;                       			// Body of the request (e.g., content of a POST request)
+		std::string							uri;            // URI of the request (path)
+		Http_Method 						method;         // HTTP method (GET, POST, DELETE)
+		std::map<std::string, std::string>	query_params;	// Query parameters from the URI (e.g., ?key=value)
+		std::map<std::string, std::string>	headers;     	// HTTP headers (e.g., Content-Type)
+		std::string 						body;           // Body of the request (e.g., content of a POST request)
+		uint32_t							size;           // Size of the package body in bytes
 	};
-
 
 	/*
 	Route Configuration:
@@ -41,32 +44,32 @@ namespace webs
 		std::string	redirect;			// You can also serve static files but redirect to another route (or page) if a file is not found. WARNING: REDIRECTION LOOP NEEDS TO BE HANDLED GRACEFULLY ( maybe after like 20-30 redirections)
 		std::string	default_file;		// Set a default file to answer if the request is a directory.
 		char		allowed_methods;	// bitfield for allowed method. Example: ROUTE_METHOD_GET | ROUTE_METHOD_POST (= 3)
-		bool		dir_listiing;		// Turn on or off directory listing.
+		bool		dir_listing;		// Turn on or off directory listing.
 	};
 
 	struct ServerConfig
 	{
 		std::string 						root;			// Root directory for this server
 		std::string						 	host;			// host of this server
-		std::list<uint32_t>					ports;			// Ports this server is listening on
-		std::list<std::string>				server_names;	// list of domain names the server goes by
-		std::list<Route>					routes;			// list of available routes
+		std::vector<uint16_t>				ports;			// Ports this server is listening on
+		std::vector<std::string>			server_names;	// list of domain names the server goes by
+		std::vector<Route>					routes;			// list of available routes
 		std::map<std::string, std::string> 	error_pages;	// default error pages for different errors...? its plural in the subject. idk....... Clarification requested. 
 		uint32_t							max_body_size;	// max package body size the server accepts
 	};
 
 	/*
-	Configureation of the webserver.
+	Configuration of the webserver.
 	name of webserver, paths for allowed cgis and so on
 	*/
 	class Config
 	{
 	private:
 		std::list<ServerConfig>	server_configs_;
-		bool	err; // set to true on error during initialization.
+		bool					err_; 				// set to true on error during initialixation.
 		Config();
 	public:
-		Config(std::string _config_file);
+		Config(const std::string& _config_file);
 		~Config();
 
 		// function to check if any server config is missing parts or is generally mallformed.
@@ -74,33 +77,133 @@ namespace webs
 		// and that no error occured;
 		bool	Validate();
 
-		// Iterator for later getting all server_configs
+		// Iterator for getting all server_configs later
 		std::list<ServerConfig>::iterator begin() { return std::list<ServerConfig>::iterator(server_configs_.begin()); }
 		std::list<ServerConfig>::iterator end()	  { return std::list<ServerConfig>::iterator(server_configs_.end());   }
+
+		// Print function for debugging. 
+		void debug_print();
+	};
+
+
+	class Server
+	{
+	private:
+		// Confifuration
+		std::string 				root;
+		std::string 				host;
+		std::vector<std::string> 	server_names;
+		uint32_t					max_client_body_size;
+
+	public:
+		Server(const ServerConfig& _config);
+		~Server();
+
+		//TODO
 	};
 
 	/*
-	handles the open socket and creates packages from incoming data.
-	*/
-	class Listener;
+		maps a ports and server ids.
+		for example:
+		ports 		= {80, 80, 8008}
+		server_ids 	= { 0,	1,    0}
 
-	/*
-	matches packages to routes and corresponding configuration. 
+		this structure is exclusively used for mapping a package to a server.
 	*/
-	class Router;
+	struct	PortServerMapping
+	{
+		std::vector<uint16_t>					ports;
+		std::vector<char[MAX_SERVERNAME_LEN]>	name;	
+		std::vector<uint8_t>					server_ids;
+	};
 
-	/*
-	Recieves packages and executes based on configuration
-	*/
-	class Executer;
+	class ServerController
+	{
+	private:
+		std::vector<Server*>	servers_;
+		PortServerMapping		ports_to_servers_;
 
-	/*
-	we need to determine how exactly the different parts of the configuration
-	are important for different parts of the process.
-	We also may need a session manager and/or an authenticator (for tokens)
+		ServerController() = delete;
+	public:
+		ServerController(Config _config);
+		void Dispatch(Package _package, uint32_t _fd);
+		void SignalFileOpComplete(int _err_code, uint8_t _server_id, uint32_t _operation_id);
+		std::vector<uint16_t> GetWantedPorts();
+		void DebugPrint();
+	};
 
-	*/
-}
+	struct Response
+	{
+		uint32_t size;
+		uint32_t bytes_send;
+		char*	 data;
+	};
+
+	//ASYNC IOINTERFACE
+	class IOInterface
+	{
+	private:
+		std::vector<struct pollfd> open_fds_;			// vector with 5 regions: listened_sockets | open_read_connections | open_write_connections | read_file | write_file
+		std::vector<uint32_t>	   awaited_revent_;
+		uint16_t				   socket_count_;		//start with 0
+		uint16_t				   read_con_count_;		//start with 0
+		uint16_t				   write_con_count_;	//start with 0
+		uint16_t				   read_file_count_;	//start with 0
+		uint16_t				   write_file_count_;	//start with 0
+
+		// data for open sockets
+		std::vector<uint16_t>	port_;
+
+		// data for open_read_connections
+		std::vector<Package>	new_connections_;
+		std::vector<uint316_t>	connection_port_;
+
+		// data for open_write_connections
+		std::vector<Response>	responses_;
+
+		// data for read file operations
+		std::vector<std::string>	read_filepaths_;		//path to file 
+		std::vector<std::string*>	read_data_outs_;
+		std::vector<uint32_t>		read_operation_id_;
+		std::vector<uint8_t>		read_server_id_;
+
+		// data for write file operations
+		std::vector<std::string>	write_filepaths_;
+		std::vector<std::string*>	write_data_ins_;
+		std::vector<uint32_t>		write_operation_id_;
+		std::vector<uint8_t>		write_server_id_;
+
+		// erase functions for local datastructures (inserts seem to be basially the same as register.)
+		void EraseReadConnetion(uint32_t _index);
+		void EraseWriteConnection(uint32_t _index);
+		void EraseReadFileOperation(uint32_t _index);
+		void EraseWriteFileOperation(uint32_t _index);
+
+		// internal functions to handle fds
+		inline void Listen(uint32_t& _index); 		// calls RegisterRecieveData
+		inline void RecieveData(uint32_t& _index); 	// recv incoming data and form a Package once done. calls ServerController.Dispatch(package) when entire package is recieved. 
+		inline void SendData(uint32_t& _index);		// sends data to client
+		inline void ReadFile(uint32_t& _index);		// reads a file and calls ServerController.SignalFileOpComplete() once done
+		inline void WriteFile(uint32_t& _index);	// writes a file and calls ServerController.SignalFileOpComplete() once done
+
+		void RegisterRecieveData(uint32_t _connection_fd);
+	public:
+		IOInterface();
+		IOInterface(std::vector<uint16_t> _listen_ports);
+		~IOInterface();
+
+		void RegisterListen(uint16_t _port);
+		void RegisterSendData(uint32_t _fd, Response _response);
+		void RegisterReadFile(std::string& _filepath, std::string* _data_out, uint32_t _operation_id, uint8_t _server_id);
+		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint32_t _operation_id, uint8_t _server_id); //duno if char* or 
+
+		// Function that will be called in a loop.
+		void Dispatch();
+
+		void DebugPrint();
+	};
+};
+
 
 
 #endif
