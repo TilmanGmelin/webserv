@@ -30,7 +30,7 @@ namespace webs
 
 	/*
 	Route Configuration:
-	- Allowed methods: Define which HTTP methods are allowed for this route (GET, POST, DELETE).
+	- Allowed methods: Define which HTTP methods are allowed for this route (GET, POST, DELETE, Dir_listing).
 	- Redirection: Set a URL to redirect to, useful for handling errors or restructuring.
 	- Directory listing: Enable or disable directory listing if the requested URL is a directory.
 	- Default file: Specify a default file (e.g., index.html) to serve when the client requests a directory.
@@ -139,7 +139,7 @@ namespace webs
 		ServerController() = delete;
 	public:
 		ServerController(Config _config);
-		void Dispatch(Package* _package, uint32_t _fd);
+		void Dispatch(Package* _package, uint32_t _port);
 		void SignalFileOpComplete(int _err_code, uint8_t _server_id, uint32_t _operation_id);
 		std::vector<uint16_t> GetWantedPorts();
 		void DebugPrint();
@@ -175,23 +175,20 @@ namespace webs
 		std::vector<Response>	responses_;
 
 		// data for read file operations
-		std::vector<std::string>	read_filepaths_;		//path to file 
 		std::vector<std::string*>	read_data_outs_;
 		std::vector<uint32_t>		read_operation_id_;
 		std::vector<uint8_t>		read_server_id_;
 
 		// data for write file operations
-		std::vector<std::string>	write_filepaths_;
 		std::vector<std::string*>	write_data_ins_;
-		std::vector<uint32_t>		write_op_bytes_written_;
 		std::vector<uint32_t>		write_operation_id_;
 		std::vector<uint8_t>		write_server_id_;
 
 		// erase functions for local datastructures (inserts seem to be basially the same as register.)
-		void EraseReadConnetion(uint32_t _index);
-		void EraseWriteConnection(uint32_t _index);
-		void EraseReadFileOperation(uint32_t _index);
-		void EraseWriteFileOperation(uint32_t _index);
+		inline void EraseReadConnetion(uint32_t _index);
+		inline void EraseWriteConnection(uint32_t _index);
+		inline void EraseReadFileOperation(uint32_t _index);
+		inline void EraseWriteFileOperation(uint32_t _index);
 
 		// internal functions to handle fds
 		inline void Listen(uint32_t& _index); 		// calls RegisterRecieveData
@@ -207,7 +204,7 @@ namespace webs
 		~IOInterface();
 
 		void RegisterListen(uint16_t _port);
-		void RegisterSendData(uint32_t _fd, Response _response);
+		void RegisterSendData(uint32_t _fd, Response& _response);
 		void RegisterReadFile(std::string& _filepath, std::string* _data_out, uint32_t _operation_id, uint8_t _server_id);
 		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint32_t _operation_id, uint8_t _server_id); //duno if char* or 
 
