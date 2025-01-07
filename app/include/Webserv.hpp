@@ -52,7 +52,7 @@ namespace webs
 		std::string 						root;			// Root directory for this server
 		std::vector<uint16_t>				ports;			// Ports this server is listening on
 		std::vector<std::string>			server_names;	// list of domain names the server goes by
-		std::vector<Route>					routes;			// list of available routes
+		std::vector<Route>					routes;			// list of allowed routes methods 
 		std::map<std::string, std::string> 	error_pages;	// default error pages for different errors...? its plural in the subject. idk....... Clarification requested. 
 		uint32_t							max_body_size;	// max package body size the server accepts
 	};
@@ -140,7 +140,8 @@ namespace webs
 	public:
 		ServerController(Config _config);
 		void Dispatch(Package* _package, uint32_t _port);
-		void SignalFileOpComplete(int _err_code, uint8_t _server_id, uint32_t _operation_id);
+		void SignalFileReadComplete(int _err_code, std::string* _data, uint32_t _fd, uint8_t _server_id);
+		void SignalFileWriteComplete(int _err_code, uint32_t _fd, uint8_t _server_id);
 		std::vector<uint16_t> GetWantedPorts();
 		void DebugPrint();
 	};
@@ -157,45 +158,40 @@ namespace webs
 	{
 	private:
 		std::vector<struct pollfd> open_fds_;			// vector with 5 regions: listened_sockets | open_read_connections | open_write_connections | read_file | write_file
-		std::vector<uint32_t>	   awaited_revent_;
-		uint16_t				   socket_count_;		//start with 0
-		uint16_t				   read_con_count_;		//start with 0
-		uint16_t				   write_con_count_;	//start with 0
-		uint16_t				   read_file_count_;	//start with 0
-		uint16_t				   write_file_count_;	//start with 0
 
 		// data for open sockets
-		std::vector<uint16_t>	port_;
+		std::vector<uint16_t>		ports_;
 
 		// data for open_read_connections
-		std::vector<uint16_t>		connection_port_;
+		std::vector<uint16_t>		connection_ports_;
 		std::vector<std::string>	recieved_data_;
 
 		// data for open_write_connections
-		std::vector<Response>	responses_;
+		std::vector<Response>		responses_;
 
 		// data for read file operations
 		std::vector<std::string*>	read_data_outs_;
-		std::vector<uint32_t>		read_operation_id_;
 		std::vector<uint8_t>		read_server_id_;
 
 		// data for write file operations
 		std::vector<std::string*>	write_data_ins_;
-		std::vector<uint32_t>		write_operation_id_;
 		std::vector<uint8_t>		write_server_id_;
 
+		inline size_t	SocketCount()	 {return ports_.size();}
+		inline size_t	ReadConCount()	 {return connection_ports_.size();}
+		inline size_t	WriteConCount()	 {return responses_.size();}
+		inline size_t	ReadFileCount()	 {return read_data_outs_.size();}
+		inline size_t	WriteFileCount() {return write_data_ins_.size();}
+
 		// erase functions for local datastructures (inserts seem to be basially the same as register.)
-		inline void EraseReadConnetion(uint32_t _index);
-		inline void EraseWriteConnection(uint32_t _index);
-		inline void EraseReadFileOperation(uint32_t _index);
-		inline void EraseWriteFileOperation(uint32_t _index);
+		void EraseFinished(); 
 
 		// internal functions to handle fds
-		inline void Listen(uint32_t& _index); 		// calls RegisterRecieveData
-		inline void RecieveData(uint32_t& _index); 	// recv incoming data and form a Package once done. calls ServerController.Dispatch(package) when entire package is recieved. 
-		inline void SendData(uint32_t& _index);		// sends data to client
-		inline void ReadFile(uint32_t& _index);		// reads a file and calls ServerController.SignalFileOpComplete() once done
-		inline void WriteFile(uint32_t& _index);	// writes a file and calls ServerController.SignalFileOpComplete() once done
+		inline void Listen(const uint32_t& _index); 		// calls RegisterRecieveData
+		inline void RecieveData(const uint32_t& _index); 	// recv incoming data and form a Package once done. calls ServerController.Dispatch(package) when entire package is recieved. 
+		inline void SendData(const uint32_t& _index);		// sends data to client
+		inline void ReadFile(const uint32_t& _index);		// reads a file and calls ServerController.SignalFileOpComplete() once done
+		inline void WriteFile(const uint32_t& _index);		// writes a file and calls ServerController.SignalFileOpComplete() once done
 
 		void RegisterRecieveData(uint32_t _connection_fd);
 	public:
@@ -205,8 +201,8 @@ namespace webs
 
 		void RegisterListen(uint16_t _port);
 		void RegisterSendData(uint32_t _fd, Response& _response);
-		void RegisterReadFile(std::string& _filepath, std::string* _data_out, uint32_t _operation_id, uint8_t _server_id);
-		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint32_t _operation_id, uint8_t _server_id); //duno if char* or 
+		void RegisterReadFile(std::string& _filepath, std::string* _data_out, uint8_t _server_id);
+		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint8_t _server_id);
 
 		// Function that will be called in a loop.
 		void Dispatch();
