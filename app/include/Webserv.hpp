@@ -11,6 +11,7 @@
 namespace webs
 {
 #define MAX_SERVERNAME_LEN 32
+#define MAX_DATA_SIZE 262144
 	/*
 	A package is what we recieve from the client.
 	The listener ist responsible for building these and handling sliced
@@ -139,7 +140,7 @@ namespace webs
 		ServerController() = delete;
 	public:
 		ServerController(Config _config);
-		void Dispatch(Package* _package, uint32_t _port);
+		void Dispatch(std::string _data, uint32_t _fd, uint32_t _port);
 		void SignalFileReadComplete(int _err_code, std::string* _data, uint32_t _fd, uint8_t _server_id);
 		void SignalFileWriteComplete(int _err_code, uint32_t _fd, uint8_t _server_id);
 		std::vector<uint16_t> GetWantedPorts();
@@ -148,9 +149,8 @@ namespace webs
 
 	struct Response
 	{
-		uint32_t size;
-		uint32_t bytes_send;
-		char*	 data;
+		std::string	data;
+		uint32_t 	bytes_send;
 	};
 
 	//ASYNC IOINTERFACE
@@ -159,6 +159,11 @@ namespace webs
 	private:
 		std::vector<struct pollfd> open_fds_;			// vector with 5 regions: listened_sockets | open_read_connections | open_write_connections | read_file | write_file
 
+		std::vector<std::tuple<uint32_t, uint16_t>>					new_read_connections_;
+		std::vector<std::tuple<uint32_t, std::string>>				new_write_connections_;
+		std::vector<std::tuple<uint32_t, uint8_t>>					new_read_file_operations_;
+		std::vector<std::tuple<uint32_t, std::string*, uint8_t>>	new_write_file_operations_;
+	
 		// data for open sockets
 		std::vector<uint16_t>		ports_;
 
@@ -183,7 +188,6 @@ namespace webs
 		inline size_t	ReadFileCount()	 {return read_data_outs_.size();}
 		inline size_t	WriteFileCount() {return write_data_ins_.size();}
 
-		// erase functions for local datastructures (inserts seem to be basially the same as register.)
 		void EraseFinished(); 
 
 		// internal functions to handle fds
@@ -199,9 +203,8 @@ namespace webs
 		IOInterface(std::vector<uint16_t> _listen_ports);
 		~IOInterface();
 
-		void RegisterListen(uint16_t _port);
 		void RegisterSendData(uint32_t _fd, Response& _response);
-		void RegisterReadFile(std::string& _filepath, std::string* _data_out, uint8_t _server_id);
+		void RegisterReadFile(std::string& _filepath, uint8_t _server_id);
 		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint8_t _server_id);
 
 		// Function that will be called in a loop.
