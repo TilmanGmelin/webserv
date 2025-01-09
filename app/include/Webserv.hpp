@@ -1,17 +1,23 @@
 #ifndef WEBSERV_HPP
 # define WEBSERV_HPP
 
+#include <sys/socket.h>
 #include <string>
 #include <list>
 #include <iterator>
 #include <poll.h>
 #include <map>
 #include <vector>
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 namespace webs
 {
 #define MAX_SERVERNAME_LEN 32
 #define MAX_DATA_SIZE 262144
+#define RECV_BUFFER_SIZE 4096
+#define INTERNAL_SERVER_ERROR 0x2008
 	/*
 	A package is what we recieve from the client.
 	The listener ist responsible for building these and handling sliced
@@ -140,70 +146,99 @@ namespace webs
 		ServerController() = delete;
 	public:
 		ServerController(Config _config);
-		void Dispatch(std::string _data, uint32_t _fd, uint32_t _port);
+		void Dispatch(std::string* _data, uint32_t _fd, uint32_t _port);
 		void SignalFileReadComplete(int _err_code, std::string* _data, uint32_t _fd, uint8_t _server_id);
 		void SignalFileWriteComplete(int _err_code, uint32_t _fd, uint8_t _server_id);
 		std::vector<uint16_t> GetWantedPorts();
 		void DebugPrint();
 	};
 
-	struct Response
+	struct WriteData
 	{
-		std::string	data;
-		uint32_t 	bytes_send;
+		std::string*	data;
+		uint32_t 		bytes_written;
 	};
 
 	//ASYNC IOINTERFACE
 	class IOInterface
 	{
 	private:
-		std::vector<struct pollfd> open_fds_;			// vector with 5 regions: listened_sockets | open_read_connections | open_write_connections | read_file | write_file
+		struct NewReadConnection
+		{
+			uint32_t	fd;
+			uint16_t	port;
+		};
 
-		std::vector<std::tuple<uint32_t, uint16_t>>					new_read_connections_;
-		std::vector<std::tuple<uint32_t, std::string>>				new_write_connections_;
-		std::vector<std::tuple<uint32_t, uint8_t>>					new_read_file_operations_;
-		std::vector<std::tuple<uint32_t, std::string*, uint8_t>>	new_write_file_operations_;
+		struct NewWriteConnection
+		{
+			uint32_t		fd;
+			std::string*	data;
+		};
+
+		struct NewReadFileOp
+		{
+			uint32_t		fd;
+			uint8_t			server_id;
+		};
+
+		struct NewWriteFileOP
+		{
+			uint32_t		fd;
+			std::string*	data;
+			uint8_t			server_id;
+		};
+
+		ServerController* server_controller_;
+		std::vector<struct pollfd> open_fds_;			// vector with 5 regions: listened_sockets | open_read_connections | open_write_connections | read_file | write_file
 	
 		// data for open sockets
 		std::vector<uint16_t>		ports_;
 
 		// data for open_read_connections
 		std::vector<uint16_t>		connection_ports_;
-		std::vector<std::string>	recieved_data_;
+		std::vector<std::string*>	recieved_data_;
 
 		// data for open_write_connections
-		std::vector<Response>		responses_;
+		std::vector<WriteData>		responses_;
 
 		// data for read file operations
-		std::vector<std::string*>	read_data_outs_;
+		std::vector<std::string*>	read_data_;
 		std::vector<uint8_t>		read_server_id_;
 
 		// data for write file operations
-		std::vector<std::string*>	write_data_ins_;
+		std::vector<WriteData>		write_data_;
 		std::vector<uint8_t>		write_server_id_;
+
+		// queued new fds. will be added to the working set once current dispatch is complete
+		uint32_t						deleted_elements_;
+		std::vector<NewWriteConnection>	new_write_connections_;
+		std::vector<NewReadFileOp>		new_read_file_operations_;
+		std::vector<NewWriteFileOP>		new_write_file_operations_;
+		std::vector<NewReadConnection>	new_read_connections_;
+
 
 		inline size_t	SocketCount()	 {return ports_.size();}
 		inline size_t	ReadConCount()	 {return connection_ports_.size();}
 		inline size_t	WriteConCount()	 {return responses_.size();}
-		inline size_t	ReadFileCount()	 {return read_data_outs_.size();}
-		inline size_t	WriteFileCount() {return write_data_ins_.size();}
+		inline size_t	ReadFileCount()	 {return read_data_.size();}
+		inline size_t	WriteFileCount() {return write_data_.size();}
 
-		void EraseFinished(); 
+		void FlushChanges();
 
 		// internal functions to handle fds
-		inline void Listen(const uint32_t& _index); 		// calls RegisterRecieveData
-		inline void RecieveData(const uint32_t& _index); 	// recv incoming data and form a Package once done. calls ServerController.Dispatch(package) when entire package is recieved. 
-		inline void SendData(const uint32_t& _index);		// sends data to client
-		inline void ReadFile(const uint32_t& _index);		// reads a file and calls ServerController.SignalFileOpComplete() once done
-		inline void WriteFile(const uint32_t& _index);		// writes a file and calls ServerController.SignalFileOpComplete() once done
+		inline void Listen(); 									// calls RegisterRecieveData
+		inline void RecieveData(const uint32_t& _start_index); 	// recv incoming data and form a Package once done. calls ServerController.Dispatch(package) when entire package is recieved. 
+		inline void SendData(const uint32_t& _start_index);		// sends data to client
+		inline void ReadFile(const uint32_t& _start_index);		// reads a file and calls ServerController.SignalFileOpComplete() once done
+		inline void WriteFile(const uint32_t& _start_index);	// writes a file and calls ServerController.SignalFileOpComplete() once done
 
 		void RegisterRecieveData(uint32_t _connection_fd);
 	public:
 		IOInterface();
-		IOInterface(std::vector<uint16_t> _listen_ports);
+		IOInterface(ServerController* _server_controller);
 		~IOInterface();
 
-		void RegisterSendData(uint32_t _fd, Response& _response);
+		void RegisterSendData(uint32_t _fd, std::string* _data);
 		void RegisterReadFile(std::string& _filepath, uint8_t _server_id);
 		void RegisterWriteFile(std::string& _filepath, std::string* _data, uint8_t _server_id);
 

@@ -145,6 +145,10 @@ int StaticExample(int argc, char* argv[])
 
 		// Für jeden Socket
         for (auto& pfd : poll_fds) {
+			//for every socket
+
+				
+
             if (pfd.revents & POLLIN) {
                 struct sockaddr_in address;
                 socklen_t addrlen = sizeof(address);
