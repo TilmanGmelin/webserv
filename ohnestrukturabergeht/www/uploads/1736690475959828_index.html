@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">TaskBoard</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Main Pages</a></li>
+                <li><a href="#">Members Area</a></li>
+                <li><a href="#">Sign Up/Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="board-container">
+        <div class="board-header">
+            <h1>Visual Task Board</h1>
+            <button id="addList" class="btn-primary">+ Add List</button>
+        </div>
+
+        <div class="board" id="mainBoard">
+            <!-- Lists will be dynamically added here -->
+        </div>
+    </main>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Task</h2>
+            <form id="taskForm">
+                <input type="text" id="taskTitle" placeholder="Task Title" required>
+                <textarea id="taskDescription" placeholder="Task Description"></textarea>
+                <button type="submit" class="btn-primary">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
