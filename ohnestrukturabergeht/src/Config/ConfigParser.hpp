@@ -15,7 +15,6 @@ struct Route {
     bool directoryListing;
     std::string defaultFile;
     std::string uploadDir;
-    std::vector<std::string> cgiExtensions;
     
     Route() : directoryListing(false) {}
 };

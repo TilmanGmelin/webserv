@@ -1,0 +1,397 @@
+DEBUG: Setting upload_store path to: www/uploads
+Created upload directory: www/uploads/
+DEBUG: Setting upload_store path to: www/uploads
+Created upload directory: www/uploads/
+DEBUG: Setting upload_store path to: www/uploads
+Created upload directory: www/uploads/
+Server listening on :8080
+Server listening on :8081
+Bytes read: 705
+12_clientBuffers[clientSocket]: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+12_Buffer: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+_clientBuffers[clientSocket]: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+
+
+
+
+
+
+
+
+
+
+Buffer: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+2_clientBuffers[clientSocket]: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+
+=== Request Debug ===
+Method: GET
+Path: /upload.html
+Raw request: GET /upload.html HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Cache-Control: max-age=0
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+sec-ch-ua-mobile: ?0
+sec-ch-ua-platform: "macOS"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+Bytes read: 676
+12_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+12_Buffer: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+
+Bytes read: 4095
+12_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+
+12_Buffer: ------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+
+Bytes read: 4095
+12_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰C
+12_Buffer: Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰C
+Bytes read: 3433
+12_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰CbA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+12_Buffer: bA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰CbA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+
+
+
+
+
+
+
+
+
+
+Buffer: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰CbA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+2_clientBuffers[clientSocket]: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰CbA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+
+=== Request Debug ===
+Method: POST
+Path: /uploads
+Raw request: POST /uploads HTTP/1.1
+Host: localhost:8080
+Connection: keep-alive
+Content-Length: 11623
+sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+sec-ch-ua-platform: "macOS"
+Accept: */*
+Origin: http://localhost:8080
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: http://localhost:8080/upload.html
+Accept-Encoding: gzip, deflate, br, zstd
+Accept-Language: en-US,en;q=0.9
+
+------WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Content-Disposition: form-data; name="file"; filename="Ben-Bohle-lang-schwarz.png"
+Content-Type: image/png
+
+‰PNG
+
+Å1bU»ÆûµÙíØ
+Äj{kr‚$¶œ³EÈ‚ØÄvÇ©ôƒ[Ö°Z3«H¬Ù;¶Ò#öÂB„,ˆí\[Eqú|Ç}p‹þNíÊ>±‰CbA¬5±SK¾ÿ¬A¬Õj×Á¢¯GRP¦˜!öîoÜ‚Ø‰¥ç]Öï‹Ýs?b{RÄÈFó)8ËtÚ¨òÏˆMØžGbg±Û±vx™®$J–±=9¾A,ˆ‚Ø¶ˆ•Ø]	@¬X1Ö»Œç £ˆ]‚Xë£Q õóˆU¼ÄŽA¬ÕeúàGõWü™Ò—<œ¡ Ä¢öElSÄKlÄÚÔ‡­ÌY"=âUƒXë‡Ø±ÜÙ@~bJìÎ„ÍØžÜEšµúj4Çœ.@,ˆµ'¶ï‰ØU3±ckÑälD;¦&-§ž(Ý™ÛŸ³ãÄrnÍV"Ä£&¶bÿ‹Ñ²“Umv[rÚ‡7fFì`ÍŽÄrˆ]JœŠ#wz±;yËöØLŸ5“›J¾{nbU×»Dˆý˜¾÷;
+Header: Host: localhost:8080
+Header: Connection: keep-alive
+Header: Content-Length: 11623
+Header: sec-ch-ua: "Chromium";v="128", "Not;A=Brand";v="24", "Google Chrome";v="128"
+Header: Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryPGHooJ6XzQA8VPwW
+Header: sec-ch-ua-mobile: ?0
+Header: User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36
+Header: sec-ch-ua-platform: "macOS"
+Header: Accept: */*
+Header: Origin: http://localhost:8080
+Header: Sec-Fetch-Site: same-origin
+Header: Sec-Fetch-Mode: cors
+Header: Sec-Fetch-Dest: empty
+Header: Referer: http://localhost:8080/upload.html
+Header: Accept-Encoding: gzip, deflate, br, zstd
+Header: Accept-Language: en-US,en;q=0.9
+Content-Length: 11623
+Current body length: 565, expected: 11623
+Waiting for more data. buffereaded: -1. Current body length: 565, expected: 11623

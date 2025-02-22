@@ -171,12 +171,6 @@ void ConfigParser::parseRouteBlock(std::istream& file, Route& route) {
                 std::cerr << "Warning: Could not create upload directory: " << e.what() << std::endl;
             }
         }
-        else if (directive == "cgi_ext") {
-            std::string ext;
-            while (iss >> ext) {
-                route.cgiExtensions.push_back(ext);
-            }
-        }
     }
     
     throw ConfigError("Unexpected end of file in location block");
