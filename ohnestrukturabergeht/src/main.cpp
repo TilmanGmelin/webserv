@@ -4,16 +4,41 @@
 #include <map>
 #include <vector>
 
+void setupDefaultConfig(std::vector<ServerConfig>& servers) {
+    std::cout << "Using internal default configuration" << std::endl;
+
+    // Erstelle eine Standard-Serverkonfiguration
+    ServerConfig defaultServer;
+    defaultServer.host = "localhost";
+    defaultServer.port = 8080;
+    defaultServer.serverNames = {"localhost"};
+    defaultServer.clientMaxBodySize = 1024 * 1024 * 10; // 10 MB
+
+    Route defaultRoute;
+    defaultRoute.path = "/";
+    defaultRoute.root = "www";
+    defaultRoute.defaultFile = "default.html";
+    defaultRoute.allowedMethods = {"POST", "GET"};
+    defaultRoute.directoryListing = false;
+    // defaultRoute.uploadDir = "uploads/";
+
+
+    defaultServer.routes.push_back(defaultRoute);
+    servers.push_back(defaultServer);
+}
+
 int main(int argc, char* argv[]) {
-    try {
-        std::string configFile = (argc > 1) ? argv[1] : "config/default.conf";
-        
-        ConfigParser parser(configFile);
-        parser.parse();
-        
-        const auto& servers = parser.getServers();
-        if (servers.empty()) {
-            throw std::runtime_error("No server configuration found");
+        std::vector<ServerConfig> servers;
+
+        if (argc > 1) {
+            std::string configFile = "config/" + std::string(argv[1]);
+            std::cout << "Using config file: " << configFile << std::endl;
+
+            ConfigParser parser(configFile);
+            parser.parse();
+            servers = parser.getServers();
+        } else {
+            setupDefaultConfig(servers);
         }
 
         // Gruppiere Server nach Ports
@@ -38,10 +63,5 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
-
-    } catch (const std::exception& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
-        return 1;
-    }
     return 0;
 } 

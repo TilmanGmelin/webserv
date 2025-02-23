@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .directory, .file {
+            margin: 5px 0;
+        }
+        .directory {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Directory Listing</h1>
+    <div id="listing"></div>
+
+    <script>
+        async function fetchDirectoryListing() {
+            try {
+                const response = await fetch(window.location.pathname);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const listing = doc.querySelector('#listing');
+                document.getElementById('listing').innerHTML = listing.innerHTML;
+            } catch (error) {
+                console.error('Failed to fetch directory listing:', error);
+            }
+        }
+
+        fetchDirectoryListing();
+    </script>
+</body>
+</html>

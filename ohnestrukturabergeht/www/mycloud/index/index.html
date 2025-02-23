@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">📊 Dashboard</div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#">🏠 Upload</a></li>
+                    <li><a href="#">📊 Analytics</a></li>
+                    <li><a href="#">⚙ Settings</a></li>
+                    <li><a href="#">🚪 Logout</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header>
+                <button class="menu-toggle">☰</button>
+                <div class="profile">
+                    <span>👤 Admin</span>
+                    <button class="dark-mode-toggle">🌙</button>
+                </div>
+            </header>
+
+            <!-- Dashboard Widgets -->
+            <section class="widgets">
+				<div class="container">
+					<h2>Upload Files to Cloud</h2>
+					
+					<div class="upload-area" id="upload-area">
+						<p>Drag & Drop files here or <span class="browse-btn">Browse</span></p>
+						<input type="file" id="file-input" multiple hidden>
+					</div>
+			
+					<ul id="file-list"></ul>
+				</div>
+				 <!-- Chart Section -->
+				 <div class="chart-container">
+					<canvas id="chart"></canvas>
+				 </div>
+            </section>
+
+        
+        </main>
+    </div>
+</body>
+</html>

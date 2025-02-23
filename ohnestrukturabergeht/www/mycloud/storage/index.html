@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud File Upload</title>
+	<base href="/storage/">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Upload Files to Cloud</h2>
+        
+        <div class="upload-area" id="upload-area">
+            <p>Drag & Drop files here or <span class="browse-btn">Browse</span></p>
+            <input type="file" id="file-input" multiple hidden>
+        </div>
+
+        <ul id="file-list"></ul>
+    </div>
+
+</body>
+</html>

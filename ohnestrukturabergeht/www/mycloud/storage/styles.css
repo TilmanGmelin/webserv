@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #2b2f37, #23262b);
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+}
+
+.upload-area {
+    border: 2px dashed #fff;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.upload-area:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Browse Button */
+.browse-btn {
+    color: #ffd700;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.browse-btn:hover {
+    text-decoration: underline;
+}
+
+#file-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.delete-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}

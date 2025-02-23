@@ -1,0 +1,19 @@
+.container {
+	width: 800px;
+	margin: 50px auto;
+	padding: 20px;
+}
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+.logout {
+	padding: 8px 16px;
+	background-color: #dc3545;
+	color: white;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+}

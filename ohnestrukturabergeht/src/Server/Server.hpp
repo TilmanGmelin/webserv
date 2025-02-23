@@ -41,6 +41,7 @@ private:
     std::vector<MultipartPart> parseMultipartFormData(const std::string& body, const std::string& boundary);
     std::string extractFilename(const std::string& contentDisposition);
     void saveUploadedFile(const std::string& uploadDir, const std::string& filename, const std::string& content);
+    std::string getDefaultFile(const std::string& directoryPath, const std::string& defaultFile);
 
 public:
     Server(const ServerConfig& config);
@@ -51,4 +52,4 @@ public:
     void stop();
 };
 
-#endif 
+#endif

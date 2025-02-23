@@ -1,0 +1,189 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+    background: #f4f4f4;
+}
+
+.sidebar {
+    width: 250px;
+    background: #222;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+}
+
+.sidebar nav ul li {
+    margin: 15px 0;
+}
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sidebar nav ul li a:hover,
+.sidebar nav ul li.active a {
+    background: #444;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.widgets {
+    display: flex;
+	flex-direction: column;
+	height: 100%;
+	gap: 20px;
+}
+
+.widget {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chart-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+    background: #181818;
+    color: white;
+}
+
+body.dark-mode .sidebar {
+    background: #333;
+}
+
+body.dark-mode .content {
+    background: #222;
+}
+
+body.dark-mode .widget,
+body.dark-mode .chart-container,
+body.dark-mode .upload-area,
+body.dark-mode .container,
+body.dark-mode header {
+    background: #333;
+    color: white;
+}
+
+
+.container {
+    background: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+	height: 50vh;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.upload-area {
+    border: 2px dashed #656464;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+	height: 100%;
+	background-image: url(https://www.pngplay.com/wp-content/uploads/8/Upload-Icon-Logo-Transparent-File.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 300px;
+}
+
+.upload-area:hover {
+    background: rgba(175, 177, 173, 0.718);
+	background-image: url(https://www.pngplay.com/wp-content/uploads/8/Upload-Icon-Logo-Transparent-File.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 280px;
+	backdrop-filter: grayscale(80%);
+}
+
+/* Browse Button */
+.browse-btn {
+    color: #ffd700;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.browse-btn:hover {
+    text-decoration: underline;
+}
+
+#file-list {
+    list-style: none;
+    padding: 0;
+	display: none;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(101, 111, 139, 0.284);
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.delete-btn {
+    background: red;
+    border: none;
+    color: white;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background: darkred;
+}
