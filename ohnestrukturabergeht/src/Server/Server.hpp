@@ -2,6 +2,7 @@
 #define SERVER_HPP
 
 #include "../Config/ConfigParser.hpp"
+#include "../HttpResponse/HttpResponse.hpp"
 #include <vector>
 #include <string>
 #include <map>
@@ -12,6 +13,13 @@
 #include <poll.h>
 #include <errno.h>
 #include <string.h>
+#include <iostream>
+#include <unistd.h>
+#include <cstring>
+#include <fstream>
+#include <sstream>
+#include <filesystem>
+#include <chrono>
 
 struct MultipartPart {
     std::map<std::string, std::string> headers;

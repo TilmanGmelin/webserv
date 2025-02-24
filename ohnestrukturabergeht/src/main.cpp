@@ -10,7 +10,7 @@ void setupDefaultConfig(std::vector<ServerConfig>& servers) {
     // Erstelle eine Standard-Serverkonfiguration
     ServerConfig defaultServer;
     defaultServer.host = "localhost";
-    defaultServer.port = 8080;
+    defaultServer.port = 80;
     defaultServer.serverNames = {"localhost"};
     defaultServer.clientMaxBodySize = 1024 * 1024 * 10; // 10 MB
 
@@ -28,12 +28,12 @@ void setupDefaultConfig(std::vector<ServerConfig>& servers) {
 }
 
 int main(int argc, char* argv[]) {
+	// try block ist doch angeblich voll toll uber alles lmnao
+	try {
         std::vector<ServerConfig> servers;
 
         if (argc > 1) {
             std::string configFile = "config/" + std::string(argv[1]);
-            std::cout << "Using config file: " << configFile << std::endl;
-
             ConfigParser parser(configFile);
             parser.parse();
             servers = parser.getServers();
@@ -41,14 +41,12 @@ int main(int argc, char* argv[]) {
             setupDefaultConfig(servers);
         }
 
-        // Gruppiere Server nach Ports
         std::map<int, std::vector<Server>> serversByPort;
         
         for (const auto& config : servers) {
             serversByPort[config.port].emplace_back(config);
         }
 
-        // Initialisiere alle Server
         for (auto& portServers : serversByPort) {
             for (auto& server : portServers.second) {
                 server.setup();
@@ -63,5 +61,10 @@ int main(int argc, char* argv[]) {
                 }
             }
         }
-    return 0;
+    	return 0;
+	} catch (const std::exception& e) {
+		std::cerr << "Error: " << e.what() << std::endl;
+		return 1;
+	}
+
 } 

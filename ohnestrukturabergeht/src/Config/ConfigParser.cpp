@@ -1,14 +1,11 @@
 #include "ConfigParser.hpp"
-#include <fstream>
-#include <sstream>
-#include <algorithm>
-#include <filesystem>
 
 ConfigParser::ConfigParser(const std::string& configPath) 
     : _configPath(configPath) {}
 
 void ConfigParser::parse() {
     std::ifstream file(_configPath);
+	
     if (!file.is_open()) {
         throw ConfigError("Cannot open config file: " + _configPath);
     }
